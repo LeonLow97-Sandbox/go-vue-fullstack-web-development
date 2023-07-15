@@ -34,6 +34,15 @@
                 <button v-on:click="decrementCounter" class="btn btn-outline-secondary">Decrement</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <form class="needs-validation mt-5" novalidate>
+                    <text-input label="First Name" type="text" name="first-name"></text-input>
+                    <text-input label="Last Name" type="text" name="last-name"></text-input>
+                    <text-input label="Email" type="email" name="email"></text-input>
+                </form>
+            </div>
+        </div>
     </div>
 
     <script src="
@@ -48,6 +57,33 @@
             message: "Hello, Vue!"
         }
 
+        const TextInput = {
+            props: {
+                name: String,
+                type: String,
+                label: String,
+                placeholder: String,
+                required: String,
+                min: String,
+                max: String,
+                value: String
+            },
+            template: `
+                <div class="mb-3">
+                    <label :for="name" class="form-label">{{ label }}</label>
+                    <input
+                        :type="type"
+                        :name="name"
+                        :placeholder="placeholder"
+                        :required="required"
+                        :min="min"
+                        :max="max"
+                        :value="value"
+                        class="form-control">
+                </div>
+            `
+        }
+
         const vm = Vue.createApp({
             data() {
                 return data
@@ -59,6 +95,9 @@
                 decrementCounter() {
                     this.counter--;
                 }
+            },
+            components: {
+                TextInput
             }
         }).mount("#app")
     </script>
