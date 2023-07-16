@@ -37,9 +37,11 @@
         <div class="row">
             <div class="col">
                 <form class="needs-validation mt-5" novalidate>
-                    <text-input label="First Name" type="text" name="first-name"></text-input>
-                    <text-input label="Last Name" type="text" name="last-name"></text-input>
-                    <text-input label="Email" type="email" name="email"></text-input>
+                    <text-input required="required" label="First Name" type="text" name="first-name"></text-input>
+                    <text-input required="required" label="Last Name" type="text" name="last-name"></text-input>
+                    <text-input required="required" label="Email" type="email" name="email"></text-input>
+                    <hr>
+                    <input type="submit" class="btn btn-primary" value="Save">
                 </form>
             </div>
         </div>
@@ -98,6 +100,33 @@
             },
             components: {
                 TextInput
+            },
+            mounted() {
+                (function () {
+                    'use strict'
+
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.querySelectorAll('.needs-validation')
+
+                    // Loop over them and prevent submission
+                    Array.prototype.slice.call(forms)
+                        .forEach(function (form) {
+                            form.addEventListener('submit', function (event) {
+                                if (!form.checkValidity()) {
+                                    event.preventDefault()
+                                    event.stopPropagation()
+                                }
+
+                                form.classList.add('was-validated')
+                            }, false)
+                        })
+                })()
+            },
+            created() {
+                console.log("Created")
+            },
+            updated() {
+                console.log("Updated")
             }
         }).mount("#app")
     </script>
