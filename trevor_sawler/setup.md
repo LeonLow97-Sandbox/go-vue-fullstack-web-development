@@ -21,3 +21,9 @@
 - `npm install -g @vue/cli`
     - To check if vue-cli is installed, type `vue --version`
 - `vue create <project_name>`
+
+# Golang
+
+## `chi`
+
+- `go get -u github.com/go-chi/chi/v5`
