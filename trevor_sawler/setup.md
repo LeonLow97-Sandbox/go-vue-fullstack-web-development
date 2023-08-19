@@ -36,3 +36,5 @@
 - chi: `go get -u github.com/go-chi/chi/v5`
 - CORS: `go get github.com/go-chi/cors`
 - jackc/pgx: `go get github.com/jackc/pgconn` and `go get github.com/jackc/pgx/v4`
+
+- Running with env, but troublesome: `env DSN="host=localhost port=5434 user=postgres password=password dbname=vueapi sslmode=disable timezone=UTC connect_timeout=5" go run ./cmd/api`
