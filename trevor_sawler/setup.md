@@ -35,3 +35,4 @@
 
 - chi: `go get -u github.com/go-chi/chi/v5`
 - CORS: `go get github.com/go-chi/cors`
+- jackc/pgx: `go get github.com/jackc/pgconn` and `go get github.com/jackc/pgx/v4`
