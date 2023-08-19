@@ -1,22 +1,24 @@
 <template>
-  <TheHeader />
-  <TheBody />
-  <TheFooter />
+  <div>
+    <Header />
+    <div>
+      <router-view />
+    </div>
+    <Footer />
+  </div>
 </template>
 
 <script>
-import TheHeader from './components/TheHeader.vue';
-import TheBody from './components/TheBody.vue';
-import TheFooter from './components/TheFooter.vue';
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    TheHeader,
-    TheBody,
-    TheFooter,
-  },
-};
+    Header,
+    Footer
+  }
+}
 </script>
 
 <style></style>
