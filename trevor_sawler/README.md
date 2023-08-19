@@ -1,1 +1,27 @@
+# Golang
 
+## How Go works with JSON Files
+
+---
+
+#### Useful Links
+
+- [Go Playground MarshalIndent](https://go.dev/play/p/2SP7H3ybk9D)
+- [Go Playground Unmarshal](https://go.dev/play/p/NaMNv6bzEXA)
+- [GoByExample JSON](https://gobyexample.com/json)
+- [Go Default Encoding Types (Go Type - JSON Type)](https://blog.boot.dev/golang/json-golang/#default-type)
+
+---
+
+#### Go Default Encoding Types
+
+JSON and GO Types don't match up 1 to 1. Below is a table that describes the type relationships when encoding and decoding.
+
+|   Go Type   | JSON Type |
+| :---------: | :-------: |
+|    bool     |  boolean  |
+|   float64   |  number   |
+|   string    |  string   |
+| nil pointer |   null    |
+
+---
