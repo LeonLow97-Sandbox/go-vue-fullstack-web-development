@@ -63,7 +63,7 @@ func (app *application) errorJSON(w http.ResponseWriter, err error, status ...in
 		statusCode = status[0]
 	}
 
-	// custom error codes in postgres
+	// custom error codes returned by postgres
 	var customErr error
 
 	switch {
