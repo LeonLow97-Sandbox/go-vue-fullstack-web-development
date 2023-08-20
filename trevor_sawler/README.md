@@ -1,3 +1,17 @@
+# Vue
+
+## Making **JWT Token** a global variable
+
+```js
+// store.js to store the value of the token
+import { reactive } from 'vue'
+
+export const store = reactive({
+  token: ''
+})
+
+```
+
 # Golang
 
 ## How Go works with JSON Files
