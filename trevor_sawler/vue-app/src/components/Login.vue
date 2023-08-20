@@ -18,6 +18,10 @@
           </text-input>
 
           <hr />
+
+          Email: {{ email }} Password: {{ password }}
+
+          <hr />
           <input type="submit" class="btn btn-primary" value="Login" />
         </form-tag>
       </div>
@@ -30,7 +34,7 @@ import FormTag from './forms/FormTag.vue'
 import TextInput from './forms/TextInput.vue'
 
 export default {
-  name: 'login',
+  name: 'LoginForm',
   components: {
     FormTag,
     TextInput
@@ -59,7 +63,7 @@ export default {
           if (data.error) {
             console.log('Error:', data.message)
           } else {
-            console.log(data)
+            console.log('Token:', data.data.token.token)
           }
         })
     }
