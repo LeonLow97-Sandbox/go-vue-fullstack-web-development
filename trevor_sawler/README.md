@@ -25,3 +25,7 @@ JSON and GO Types don't match up 1 to 1. Below is a table that describes the typ
 | nil pointer |   null    |
 
 ---
+
+## Error Codes in PostgreSQL
+
+- [Error Codes in Postgres](https://www.postgresql.org/docs/current/errcodes-appendix.html)
