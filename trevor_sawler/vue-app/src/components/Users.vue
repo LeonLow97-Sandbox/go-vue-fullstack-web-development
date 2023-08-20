@@ -7,3 +7,14 @@
     </div>
   </div>
 </template>
+
+<script>
+import Security from '@/components/security'
+
+export default {
+  beforeMount() {
+    // protected route
+    Security.requireToken()
+  }
+}
+</script>

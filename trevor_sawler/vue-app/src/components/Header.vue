@@ -68,6 +68,7 @@
 <script>
 import { store } from '@/components/store'
 import router from '@/router/index.js'
+import Security from '@/components/security'
 
 export default {
   data() {
@@ -82,12 +83,7 @@ export default {
         token: store.token
       }
 
-      const requestOptions = {
-        method: 'POST',
-        body: JSON.stringify(payload)
-      }
-
-      fetch(`${import.meta.env.VITE_APP_API_URL}/users/logout`, requestOptions)
+      fetch(`${import.meta.env.VITE_APP_API_URL}/users/logout`, Security.requestOptions(payload))
         .then((response) => response.json())
         .then((response) => {
           if (response.error) {
