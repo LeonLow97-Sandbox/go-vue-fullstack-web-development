@@ -57,7 +57,7 @@ export default {
         body: JSON.stringify(payload)
       }
 
-      fetch('http://localhost:8081/users/login', requestOptions)
+      fetch(`${import.meta.env.VITE_APP_API_URL}/users/login`, requestOptions)
         .then((response) => response.json())
         .then((response) => {
           if (response.error) {
@@ -73,21 +73,22 @@ export default {
               id: response.data.user.id,
               first_name: response.data.user.first_name,
               last_name: response.data.user.last_name,
-              email: response.data.user.email,
+              email: response.data.user.email
             }
 
             // save info to cookie
             let date = new Date()
             let expDays = 1 // cookie lasts for 1 day
-            date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
-            const expires = "expires=" + date.toUTCString();
+            date.setTime(date.getTime() + expDays * 24 * 60 * 60 * 1000)
+            const expires = 'expires=' + date.toUTCString()
 
             // set the cookie
-            document.cookie = "_site_data="
-            + JSON.stringify(response.data)
-            + "; "
-            + expires
-            + "; path=/; SameSite=strict; Secure;"
+            document.cookie =
+              '_site_data=' +
+              JSON.stringify(response.data) +
+              '; ' +
+              expires +
+              '; path=/; SameSite=strict; Secure;'
 
             router.push('/')
           }
