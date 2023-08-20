@@ -62,13 +62,33 @@ export default {
         .then((response) => {
           if (response.error) {
             notie.alert({
-              type: "error",
-              text: response.message,
+              type: 'error',
+              text: response.message
               // stay: true,
               //position: 'bottom',
             })
           } else {
             store.token = response.data.token.token // jwt token
+            store.user = {
+              id: response.data.user.id,
+              first_name: response.data.user.first_name,
+              last_name: response.data.user.last_name,
+              email: response.data.user.email,
+            }
+
+            // save info to cookie
+            let date = new Date()
+            let expDays = 1 // cookie lasts for 1 day
+            date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+
+            // set the cookie
+            document.cookie = "_site_data="
+            + JSON.stringify(response.data)
+            + "; "
+            + expires
+            + "; path=/; SameSite=strict; Secure;"
+
             router.push('/')
           }
         })

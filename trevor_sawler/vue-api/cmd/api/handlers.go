@@ -66,6 +66,7 @@ func (app *application) Login(w http.ResponseWriter, r *http.Request) {
 		Message: "Logged in",
 		Data: envelope{
 			"token": token,
+			"user": user,
 		},
 	}
 
