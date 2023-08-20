@@ -31,6 +31,13 @@
   - To check if vue-cli is installed, type `vue --version`
 - `vue create <project_name>`
 
+## `notie`
+
+- For custom error messages alert box
+- `npm install notie`
+- Add to `index.html`
+  - `<link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css" />`
+
 # Golang
 
 - chi: `go get -u github.com/go-chi/chi/v5`

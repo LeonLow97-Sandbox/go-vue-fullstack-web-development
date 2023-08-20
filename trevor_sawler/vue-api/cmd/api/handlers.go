@@ -23,8 +23,6 @@ func (app *application) Login(w http.ResponseWriter, r *http.Request) {
 	var creds credentials
 	var payload jsonResponse
 
-	app.infoLog.Println("Hit here")
-
 	err := app.readJSON(w, r, &creds)
 	if err != nil {
 		app.errorLog.Println(err)
@@ -33,9 +31,6 @@ func (app *application) Login(w http.ResponseWriter, r *http.Request) {
 		_ = app.writeJSON(w, http.StatusBadRequest, payload)
 		return
 	}
-
-	// TODO: authenticate
-	app.infoLog.Println(creds.UserName, creds.Password)
 
 	// look up the user by email
 	user, err := app.models.User.GetByEmail(creds.UserName)
@@ -79,4 +74,29 @@ func (app *application) Login(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		app.errorLog.Println(err)
 	}
+}
+
+func (app *application) Logout(w http.ResponseWriter, r *http.Request) {
+	var requestPayload struct {
+		Token string `json:"token"`
+	}
+
+	err := app.readJSON(w, r, &requestPayload)
+	if err != nil {
+		app.errorJSON(w, errors.New("invalid json"))
+		return
+	}
+
+	err = app.models.Token.DeleteByToken(requestPayload.Token)
+	if err != nil {
+		app.errorJSON(w, errors.New("invalid json"))
+		return
+	}
+
+	payload := jsonResponse {
+		Error: false,
+		Message: "logged out",
+	}
+
+	_ = app.writeJSON(w, http.StatusOK, payload)
 }
