@@ -43,7 +43,7 @@ export default {
     // protected route
     Security.requireToken()
 
-    fetch(`${import.meta.env.VITE_APP_API_URL}/admin/users/all`, Security.requestOptions(''))
+    fetch(`${import.meta.env.VITE_APP_API_URL}/admin/users`, Security.requestOptions(''))
       .then((response) => response.json())
       .then((response) => {
         if (response.error) {
