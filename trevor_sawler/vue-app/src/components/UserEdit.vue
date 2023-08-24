@@ -51,6 +51,7 @@
             v-model="user.password"
             type="password"
             label="Password"
+            help="Leave empty to keep existing password"
             :value="user.password"
             name="password"
           >
@@ -96,7 +97,23 @@ export default {
     // base 10 - each digit of a number is an integer value ranging from 0 to 9
     if (parseInt(String(this.$route.params.userId), 10) > 0) {
       // editing an existing user
-      // TODO - get user from database
+      fetch(
+        `${import.meta.env.VITE_APP_API_URL}/admin/users/get/${this.$route.params.userId}`,
+        Security.requestOptions('')
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            notie.alert({
+              type: 'error',
+              text: data.message
+            })
+          } else {
+            this.user = data
+            // we want password to be empty for existing users
+            this.user.password = ''
+          }
+        })
     }
   },
   data() {
@@ -150,7 +167,36 @@ export default {
           })
         })
     },
-    confirmDelete() {}
+    confirmDelete(id) {
+      notie.confirm({
+        text: 'Are you sure you want to delete this user?',
+        submitText: 'Delete',
+        submitCallback: function () {
+          let payload = {
+            id
+          }
+
+          fetch(
+            `${import.meta.env.VITE_APP_API_URL}/admin/users/delete`,
+            Security.requestOptions(payload)
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                notie.alert({
+                  type: 'error',
+                  text: data.message
+                })
+              } else {
+                notie.alert({
+                  type: 'success',
+                  text: 'User deleted'
+                })
+              }
+            })
+        }
+      })
+    }
   }
 }
 </script>
