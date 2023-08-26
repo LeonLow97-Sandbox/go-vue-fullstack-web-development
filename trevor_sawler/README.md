@@ -12,6 +12,21 @@ export const store = reactive({
 
 ```
 
+## Navigation Guards
+
+- Navigation guards provided by Vue router are primarily used to guard navigation either by redirecting it or canceling it.
+- Protect the routes when user is unauthorized.
+
+```js
+const router = createRouter({ ... })
+
+router.beforeEach((to, from) => {
+  // ...
+  // explicitly return false to cancel the navigation
+  return false
+})
+```
+
 # Golang
 
 ## How Go works with JSON Files

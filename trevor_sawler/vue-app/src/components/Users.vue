@@ -85,8 +85,9 @@ export default {
           text: 'Are you sure you want to log this user out?',
           submitText: 'Log Out',
           submitCallback: () => {
+            console.log('Would log out user id', id)
             fetch(
-              `${import.meta.env.VITE_APP_API_URL}/admin/log-user-out/${id}`,
+              import.meta.env.VITE_APP_API_URL + '/admin/log-user-out/' + id,
               Security.requestOptions('')
             )
               .then((response) => response.json())
@@ -95,7 +96,7 @@ export default {
                   this.$emit('error', data.message)
                 } else {
                   this.$emit('success', data.message)
-                  this.$emit('forceUpdate') // force the component to rerender
+                  this.$emit('forceUpdate')
                 }
               })
           }
