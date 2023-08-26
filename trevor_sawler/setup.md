@@ -45,3 +45,7 @@
 - jackc/pgx: `go get github.com/jackc/pgconn` and `go get github.com/jackc/pgx/v4`
 
 - Running with env, but troublesome: `env DSN="host=localhost port=5434 user=postgres password=password dbname=vueapi sslmode=disable timezone=UTC connect_timeout=5" go run ./cmd/api`
+
+## Database
+
+- Used Beekeeper Studio
