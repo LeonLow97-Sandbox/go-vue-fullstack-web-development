@@ -1,17 +1,18 @@
 <template>
   <div>
-    <Header />
+    <TheHeader />
     <div>
-      <router-view />
+      <router-view @success="success" @error="error" @warning="warning" />
     </div>
-    <Footer />
+    <TheFooter />
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
+import TheHeader from './components/Header.vue'
+import TheFooter from './components/Footer.vue'
 import { store } from '@/components/store.js'
+import notie from 'notie'
 
 // pass in the name of the cookie
 // If the cookie cannot be found, we return an empty string ""
@@ -26,8 +27,8 @@ const getCookie = (name) => {
 export default {
   name: 'App',
   components: {
-    Header,
-    Footer
+    TheHeader,
+    TheFooter
   },
   data() {
     return {
@@ -48,6 +49,26 @@ export default {
         last_name: cookieData.user.last_name,
         email: cookieData.user.email
       }
+    }
+  },
+  methods: {
+    success(msg) {
+      notie.alert({
+        type: 'success',
+        text: msg
+      })
+    },
+    error(msg) {
+      notie.alert({
+        type: 'error',
+        text: msg
+      })
+    },
+    warning(msg) {
+      notie.alert({
+        type: 'warning',
+        text: msg
+      })
     }
   }
 }
