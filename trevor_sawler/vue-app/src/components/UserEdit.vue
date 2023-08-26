@@ -4,7 +4,12 @@
       <div class="col">
         <h1 class="mt-3">User</h1>
         <hr />
-        <form-tag @userEditEvent="submitHandler" name="userform" event="userEditEvent">
+        <form-tag
+          v-if="this.ready"
+          @userEditEvent="submitHandler"
+          name="userform"
+          event="userEditEvent"
+        >
           <text-input
             v-model="user.first_name"
             type="text"
@@ -12,8 +17,7 @@
             label="First Name"
             :value="user.first_name"
             name="first-name"
-          >
-          </text-input>
+          ></text-input>
 
           <text-input
             v-model="user.last_name"
@@ -22,8 +26,7 @@
             label="Last Name"
             :value="user.last_name"
             name="last-name"
-          >
-          </text-input>
+          ></text-input>
 
           <text-input
             v-model="user.email"
@@ -32,8 +35,7 @@
             label="Email"
             :value="user.email"
             name="email"
-          >
-          </text-input>
+          ></text-input>
 
           <text-input
             v-if="this.user.id === 0"
@@ -43,8 +45,7 @@
             label="Password"
             :value="user.password"
             name="password"
-          >
-          </text-input>
+          ></text-input>
 
           <text-input
             v-else
@@ -54,8 +55,28 @@
             help="Leave empty to keep existing password"
             :value="user.password"
             name="password"
-          >
-          </text-input>
+          ></text-input>
+
+          <div class="form-check">
+            <input
+              v-model="user.active"
+              class="form-check-input"
+              type="radio"
+              id="user-active"
+              :value="1"
+            />
+            <label class="form-check-label" for="user-active"> Active </label>
+          </div>
+          <div class="form-check">
+            <input
+              v-model="user.active"
+              class="form-check-input"
+              type="radio"
+              id="user-active-2"
+              :value="0"
+            />
+            <label class="form-check-label" for="user-active-2"> Inactive </label>
+          </div>
 
           <hr />
           <div class="float-start">
@@ -76,30 +97,29 @@
           </div>
           <div class="clearfix"></div>
         </form-tag>
+
+        <p v-else>Loading...</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Security from '@/components/security'
-import FormTag from '@/components/forms/FormTag.vue'
-import TextInput from '@/components/forms/TextInput.vue'
+import Security from './security.js'
+import FormTag from './forms/FormTag.vue'
+import TextInput from './forms/TextInput.vue'
 import notie from 'notie'
-import { store } from '@/components/store.js'
-import router from '@/router/index.js'
+import { store } from './store'
+import router from './../router/index.js'
 
 export default {
   beforeMount() {
-    // protected route
     Security.requireToken()
 
-    // ensures that it is a base 10 integer
-    // base 10 - each digit of a number is an integer value ranging from 0 to 9
     if (parseInt(String(this.$route.params.userId), 10) > 0) {
       // editing an existing user
       fetch(
-        `${import.meta.env.VITE_APP_API_URL}/admin/users/get/${this.$route.params.userId}`,
+        import.meta.env.VITE_APP_API_URL + '/admin/users/get/' + this.$route.params.userId,
         Security.requestOptions('')
       )
         .then((response) => response.json())
@@ -108,10 +128,13 @@ export default {
             this.$emit('error', data.message)
           } else {
             this.user = data
+            this.ready = true
             // we want password to be empty for existing users
             this.user.password = ''
           }
         })
+    } else {
+      this.ready = true
     }
   },
   data() {
@@ -121,9 +144,11 @@ export default {
         first_name: '',
         last_name: '',
         email: '',
-        password: ''
+        password: '',
+        active: 0
       },
-      store
+      store,
+      ready: false
     }
   },
   components: {
@@ -137,7 +162,8 @@ export default {
         first_name: this.user.first_name,
         last_name: this.user.last_name,
         email: this.user.email,
-        password: this.user.password
+        password: this.user.password,
+        active: this.user.active
       }
 
       fetch(
@@ -149,7 +175,7 @@ export default {
           if (data.error) {
             this.$emit('error', data.message)
           } else {
-            this.$emit('success', 'Changes Saved!')
+            this.$emit('success', 'Changes saved!')
             router.push('/admin/users')
           }
         })
@@ -163,11 +189,11 @@ export default {
         submitText: 'Delete',
         submitCallback: function () {
           let payload = {
-            id
+            id: id
           }
 
           fetch(
-            `${import.meta.env.VITE_APP_API_URL}/admin/users/delete`,
+            import.meta.env.VITE_APP_API_URL + '/admin/users/delete',
             Security.requestOptions(payload)
           )
             .then((response) => response.json())
@@ -175,7 +201,7 @@ export default {
               if (data.error) {
                 this.$emit('error', data.message)
               } else {
-                this.$emit('success', 'User Deleted!')
+                this.$emit('success', 'User deleted')
                 router.push('/admin/users')
               }
             })
