@@ -37,11 +37,13 @@
                 style="width: 10rem"
                 v-if="b.genre_ids.includes(currentFilter) || currentFilter === 0"
               >
-                <img
-                  :src="`${this.imgPath}/covers/${b.slug}.jpg`"
-                  class="card-img-top"
-                  :alt="`cover for ${b.title}`"
-                />
+                <router-link :to="`/books/${b.slug}`">
+                  <img
+                    :src="`${this.imgPath}/covers/${b.slug}.jpg`"
+                    class="card-img-top"
+                    :alt="`cover for ${b.title}`"
+                  />
+                </router-link>
 
                 <div class="card-body text-center">
                   <h6 class="card-title">{{ b.title }}</h6>
@@ -136,7 +138,8 @@ export default {
   transition: all 500ms ease-in;
 }
 
-.books-enter, .books-leave {
+.books-enter,
+.books-leave {
   opacity: 0;
 }
 </style>

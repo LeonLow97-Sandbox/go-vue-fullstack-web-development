@@ -26,10 +26,56 @@ router.beforeEach((to, from) => {
 })
 ```
 
-## Transition
+```js
+//App.vue
+<router-view
+  v-slot="{ Component }"
+  :key="componentKey"
+  @success="success"
+  @error="error"
+  @warning="warning"
+  @forceUpdate="forceUpdate"
+>
+  <keep-alive>
+    <component :is="Component" />
+  </keep-alive>
+</router-view>
+```
+
+## `TransitionGroup`
 
 - [TransitionGroup](https://vuejs.org/guide/built-ins/transition-group.html)
 - [Transition](https://vuejs.org/guide/built-ins/transition.html)
+
+## `KeepAlive`
+
+- `<KeepAlive>` is a built-in component that allows us to conditionally cache component instances when dynamically switching between multiple components.
+- [KeepAlive](https://vuejs.org/guide/built-ins/keep-alive.html)
+
+```js
+<KeepAlive>
+  <component :is="activeComponent" />
+</KeepAlive>
+```
+
+- `activated` lifecycle hook is called when a component inside a `keep-alive` becomes the active component to be displayed.
+- `deactivated` lifecycle hook is called when a component inside a `keep-alive` is no longer the active component and is being cached for potential reuse.
+
+```js
+// Book.vue
+<script setup>
+export default {
+  activated() {
+    // Component has been re-activated
+    // You can reset data or fetch new data here
+  },
+  deactivated() {
+    // Component is being deactivated
+    // You can reset data or perform cleanup here
+  }
+}
+</script>
+```
 
 # Golang
 
