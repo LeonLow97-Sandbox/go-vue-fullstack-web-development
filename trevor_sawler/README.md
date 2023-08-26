@@ -4,12 +4,11 @@
 
 ```js
 // store.js to store the value of the token
-import { reactive } from 'vue'
+import { reactive } from 'vue';
 
 export const store = reactive({
-  token: ''
-})
-
+  token: '',
+});
 ```
 
 ## Navigation Guards
@@ -26,6 +25,11 @@ router.beforeEach((to, from) => {
   return false
 })
 ```
+
+## Transition
+
+- [TransitionGroup](https://vuejs.org/guide/built-ins/transition-group.html)
+- [Transition](https://vuejs.org/guide/built-ins/transition.html)
 
 # Golang
 
