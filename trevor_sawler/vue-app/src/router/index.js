@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Body from '@/components/Body.vue'
 import Login from '@/components/Login.vue'
-import Books from '@/components/Books.vue'
+import BooksComposition from '@/components/BooksComposition.vue'
 import Book from '@/components/Book.vue'
 import BooksAdmin from '@/components/BooksAdmin.vue'
 import BookEdit from '@/components/BookEdit.vue'
@@ -22,8 +22,8 @@ const routes = [
   },
   {
     path: '/books',
-    name: 'Books',
-    component: Books
+    name: 'BooksComposition',
+    component: BooksComposition
   },
   {
     path: '/books/:bookName',
