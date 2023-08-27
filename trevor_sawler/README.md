@@ -119,6 +119,22 @@ loadCoverImage() {
 </keep-alive>
 ```
 
+## Building Application for Production
+
+- `npm run build`
+- Created a new folder `dist` in Vue root directory
+
+```js
+// package.json
+"scripts": {
+  "dev": "vite",
+  "build": "vite build --mode production",
+}
+```
+
+- We used `Caddy` for our web server.
+- [Other Web Servers with Vue](https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations)
+
 # Golang
 
 ## How Go works with JSON Files
