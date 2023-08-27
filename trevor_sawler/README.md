@@ -150,3 +150,24 @@ JSON and GO Types don't match up 1 to 1. Below is a table that describes the typ
 ## Error Codes in PostgreSQL
 
 - [Error Codes in Postgres](https://www.postgresql.org/docs/current/errcodes-appendix.html)
+
+## Decoding an image base64 encoded string
+
+```go
+// handlers.go
+var staticPath = "./static/" // var because we can unit test this by changing the output path location
+
+if len(requestPayload.CoverBase64) > 0 {
+  // we have a cover
+  decoded, err := base64.StdEncoding.DecodeString(requestPayload.CoverBase64)
+  if err != nil {
+    app.errorJSON(w, err)
+    return
+  }
+
+  // write image to /static/covers
+  if err := os.WriteFile(fmt.Sprintf("%s/covers/%s.jpg", staticPath, book.Slug), decoded, 0666); err != nil {
+    app.errorJSON(w, err)
+    return
+  }
+```
