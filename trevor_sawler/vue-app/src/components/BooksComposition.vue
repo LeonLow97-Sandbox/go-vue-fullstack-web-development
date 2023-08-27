@@ -29,7 +29,7 @@
       </div>
       <hr />
 
-      <div>
+      <div v-if="ready">
         <div class="card-group">
           <TransitionGroup class="p-3 d-flex flex-wrap" tag="div" appear name="books">
             <div v-for="b in books" :key="b.id">
@@ -59,6 +59,7 @@
           </TransitionGroup>
         </div>
       </div>
+      <p v-else>Loading...</p>
     </div>
   </div>
 </template>
