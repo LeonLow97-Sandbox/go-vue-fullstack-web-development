@@ -77,6 +77,28 @@ export default {
 </script>
 ```
 
+## `loadCoverImage` function (`BookEdit.vue`)
+
+- Responsible for loading and encoding an image file selected by the user using an `input type="file">` element.
+- It then converts the image into a base64 encoded string, which can be used to display or send the image data to a backend API.
+
+```js
+loadCoverImage() {
+  // get a reference to the input using ref
+  const file = this.$refs.coverInput.files[0]
+
+  // encode the file using the FileReader API
+  // need base64 string to send in JSON to backend API
+  const reader = new FileReader()
+  reader.onloadend = () => {
+    const base64String = reader.result.replace('data:', '').replace(/^.+,/, '')
+    this.book.cover = base64String
+    // alert(base64String);
+  }
+  reader.readAsDataURL(file)
+},
+```
+
 #### `KeepAlive` with `include`
 
 - By default, `KeepAlive` will cache any component instance inside.
