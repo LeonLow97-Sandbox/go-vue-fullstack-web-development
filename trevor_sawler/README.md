@@ -77,6 +77,26 @@ export default {
 </script>
 ```
 
+#### `KeepAlive` with `include`
+
+- By default, `KeepAlive` will cache any component instance inside.
+- Can customize this behavior via the `include` and `exclude` props. Both props can be a comma-delimited string, a `RegExp`, or any array containing either types.
+- The match is checked against the component's `name` option, so components that need to be conditionally cached by `KeepAlive` must explicitly declare a `name` option.
+
+```js
+// Example
+<KeepAlive include="a,b">
+  <component :is="view" />
+</KeepAlive>
+```
+
+```js
+// App.vue
+<keep-alive include="Books">
+  <component :is="Component" />
+</keep-alive>
+```
+
 # Golang
 
 ## How Go works with JSON Files

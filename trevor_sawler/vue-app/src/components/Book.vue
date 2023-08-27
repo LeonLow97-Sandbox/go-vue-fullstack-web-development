@@ -36,7 +36,7 @@ export default {
       ready: false
     }
   },
-  activated() {
+  mounted() {
     fetch(import.meta.env.VITE_APP_API_URL + '/books/' + this.$route.params.bookName)
       .then((response) => response.json())
       .then((data) => {
@@ -47,9 +47,6 @@ export default {
           this.ready = true
         }
       })
-  },
-  deactivated() {
-
   }
 }
 </script>

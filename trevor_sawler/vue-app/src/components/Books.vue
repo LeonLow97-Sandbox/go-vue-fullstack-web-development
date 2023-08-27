@@ -66,6 +66,7 @@
 import { store } from '@/components/store'
 
 export default {
+  name: 'Books',
   data() {
     return {
       store,
